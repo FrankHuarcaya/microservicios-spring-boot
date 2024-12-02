@@ -1,10 +1,10 @@
-package com.microservicios.app.cursos.mapping;
+package com.microservices.app.users.mapping;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration("cursoMappingConfiguration")
+@Configuration("userMappingConfiguration")
 public class MappingConfiguration {
 
     @Bean
@@ -13,8 +13,7 @@ public class MappingConfiguration {
     }
 
     @Bean
-    public CourseMapping courseMapping(ModelMapper modelMapper){
-        return new CourseMapping(modelMapper);
-    }
+    public PersonMapping personMapping(ModelMapper modelMapper){return new PersonMapping(modelMapper);}
+
 
 }
