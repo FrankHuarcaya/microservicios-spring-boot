@@ -5,6 +5,7 @@ import com.microservices.app.users.domain.persistence.PersonRepository;
 import com.microservices.app.users.domain.services.IPersonServices;
 import com.microservices.app.users.dto.PersonDto;
 import com.microservices.app.users.mapping.PersonMapping;
+import com.microservices.app.users.shared.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,7 +42,7 @@ public class PersonServiceImplement implements IPersonServices {
         Optional<Person> optionalPerson = personRepository.findById(id);
 
         if (!optionalPerson.isPresent()) {
-            throw new RuntimeException("Person not found with id: " + id);
+            throw new ResourceNotFoundException("Person",id);
         }
         Person person = optionalPerson.get();
         person.setFirstName(personDto.getFirstName());
@@ -60,7 +61,7 @@ public class PersonServiceImplement implements IPersonServices {
         Optional<Person> optionalPerson = personRepository.findById(id);
 
         if (!optionalPerson.isPresent()) {
-            throw new RuntimeException("Person not found with id: " + id);
+            throw new ResourceNotFoundException("Person",id);
         }
 
         return mapping.modelDto(optionalPerson.get());

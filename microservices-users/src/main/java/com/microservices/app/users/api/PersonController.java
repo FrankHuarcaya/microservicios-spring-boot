@@ -38,12 +38,8 @@ public class PersonController {
 
     @GetMapping("/{id}")
     public ResponseEntity<PersonDto> getPersonById(@PathVariable Long id) {
-        try {
-            PersonDto person = personService.retrievePerson(id);
-            return ResponseEntity.ok(person); // Devuelve un 200 OK con la persona encontrada
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build(); // Devuelve un 404 Not Found
-        }
+        PersonDto person = personService.retrievePerson(id);
+        return ResponseEntity.ok(person); // Devuelve un 200 OK con la persona encontrada
     }
 
     @DeleteMapping("/{id}")

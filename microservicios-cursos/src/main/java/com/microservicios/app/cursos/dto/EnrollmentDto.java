@@ -9,4 +9,7 @@ public class EnrollmentDto {
     private Long courseId;  // ID del curso al que pertenece
     private Long studentId; // ID del estudiante que se matricula
 
+    private CourseDto course; // Información del curso
+    private PersonDto student; // Información del estudiante
+
 }
