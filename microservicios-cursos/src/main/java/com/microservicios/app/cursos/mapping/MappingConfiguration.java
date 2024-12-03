@@ -17,4 +17,9 @@ public class MappingConfiguration {
         return new CourseMapping(modelMapper);
     }
 
+    @Bean
+    public EnrollmentMapping enrollmentMapping(ModelMapper modelMapper){
+        return new EnrollmentMapping(modelMapper);
+    }
+
 }
