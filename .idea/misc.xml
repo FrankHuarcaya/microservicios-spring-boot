@@ -9,6 +9,7 @@
         <option value="$PROJECT_DIR$/microservicios-zuul/pom.xml" />
         <option value="$PROJECT_DIR$/microservicios-cursos/pom.xml" />
         <option value="$PROJECT_DIR$/microservices-exams/pom.xml" />
+        <option value="$PROJECT_DIR$/microservices-gateway/pom.xml" />
       </list>
     </option>
   </component>
