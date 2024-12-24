@@ -12,6 +12,7 @@ import com.microservicios.app.cursos.dto.PersonDto;
 import com.microservicios.app.cursos.mapping.CourseMapping;
 import com.microservicios.app.cursos.mapping.EnrollmentMapping;
 import com.microservicios.app.cursos.shared.exception.ResourceNotFoundException;
+import com.microservicios.app.cursos.shared.exception.ServiceUnavailableException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -53,6 +54,11 @@ public class EnrollmentServiceImplement implements IEnrollmentService {
 
             // Llamar al microservicio de Usuarios
             PersonDto studentDto = userClient.getPersonById(enrollment.getStudentId());
+            if (studentDto == null || studentDto.getId() == null) {
+                // Lanzar excepción si no se pudo obtener el usuario
+                throw new ServiceUnavailableException("El servicio de usuarios no está disponible.");
+            }
+
             dto.setStudent(studentDto);
 
             return dto;
