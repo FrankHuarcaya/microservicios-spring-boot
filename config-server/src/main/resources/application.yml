@@ -1,0 +1,15 @@
+server:
+  port: 8888 # Puerto donde se ejecutará el config-server
+
+spring:
+  application:
+    name: config-server # Nombre del servicio
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/FrankHuarcaya/config-server.git # Reemplaza con tu URL
+          default-label: master # Rama principal del repositorio, normalmente 'main' o 'master'
+
+profiles:
+  active: git # Activa el perfil para usar configuración desde Git

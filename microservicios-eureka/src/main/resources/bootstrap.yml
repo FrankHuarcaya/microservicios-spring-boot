@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: microservicio-eureka-server # Nombre del servicio que utilizará el config-server
+  cloud:
+    config:
+      uri: http://localhost:8888 # URL del config-server
+      fail-fast: true

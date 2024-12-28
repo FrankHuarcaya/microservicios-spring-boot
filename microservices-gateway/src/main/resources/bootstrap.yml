@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: microservices-gateway
+
+  cloud:
+    config:
+      uri: http://localhost:8888 # Dirección del Config Server
+      fail-fast: true # Falla si no puede conectarse al Config Server
