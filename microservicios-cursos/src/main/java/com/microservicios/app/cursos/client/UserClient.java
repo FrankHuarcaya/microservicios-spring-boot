@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.ArrayList;
 import java.util.List;
 
-@FeignClient(name = "microservicio-usuarios") // Nombre del microservicio registrado en Eureka
+@FeignClient(name = "microservices-users") // Nombre del microservicio registrado en Eureka
 public interface UserClient {
     @GetMapping("/api/v1/persons/{id}")
     @CircuitBreaker(name = "microservices-cursos", fallbackMethod = "fallbackGetPersonById")
