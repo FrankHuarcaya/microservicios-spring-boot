@@ -11,7 +11,7 @@ public class CourseService {
     private final WebClient webClient;
 
     public CourseService(WebClient.Builder webClientBuilder) {
-        this.webClient = webClientBuilder.baseUrl("http://localhost:8080").build();
+        this.webClient = webClientBuilder.baseUrl("http://localhost:8082").build();
     }
 
     public Mono<CourseDto> getCourseById(Long id) {

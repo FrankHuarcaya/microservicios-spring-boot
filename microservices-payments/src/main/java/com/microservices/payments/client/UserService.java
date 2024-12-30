@@ -10,7 +10,7 @@ public class UserService {
     private final WebClient webClient;
 
     public UserService(WebClient.Builder webClientBuilder) {
-        this.webClient = webClientBuilder.baseUrl("http://localhost:8080").build();
+        this.webClient = webClientBuilder.baseUrl("http://localhost:8081").build();
     }
 
     public Mono<PersonDto> getPersonById(Long id) {

@@ -15,8 +15,6 @@ public class PaymentDto {
     private String status; // Estado del pago: "PENDING", "COMPLETED", "FAILED"
     private Date paymentDate; // Fecha del pago
 
-    private LocalDateTime createdAt; // Fecha de creación
-    private LocalDateTime updatedAt; // Fecha de última actualización
 
     public PaymentDto() {
     }
@@ -69,19 +67,4 @@ public class PaymentDto {
         this.paymentDate = paymentDate;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
 }

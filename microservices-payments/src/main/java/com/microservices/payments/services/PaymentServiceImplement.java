@@ -61,15 +61,7 @@ public class PaymentServiceImplement implements IPaymentService {
     @Override
     public Mono<PaymentDto> getPaymentById(String id) {
         return paymentRepository.findById(id)
-                .map(payment -> {
-                    PaymentDto dto = new PaymentDto();
-                    dto.setId(payment.getId());
-                    dto.setStudentId(payment.getStudentId());
-                    dto.setCourseId(payment.getCourseId());
-                    dto.setAmount(payment.getAmount());
-                    dto.setCreatedAt(payment.getCreatedAt());
-                    return dto;
-                })
+                .map(paymentMapping::model) // Convertir entidad a DTO
                 .switchIfEmpty(Mono.error(new IllegalArgumentException("El pago no existe")));
     }
 
