@@ -14,13 +14,14 @@
         <module name="config-server" />
         <module name="microservicios-zuul" />
       </profile>
-      <profile name="Annotation profile for microservices-exams" enabled="true">
+      <profile name="Annotation profile for microservices-payments" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
         </processorPath>
+        <module name="microservices-payments" />
         <module name="microservices-exams" />
       </profile>
     </annotationProcessing>
@@ -30,6 +31,7 @@
       <module name="config-server" options="-parameters" />
       <module name="microservices-exams" options="-parameters" />
       <module name="microservices-gateway" options="-parameters" />
+      <module name="microservices-payments" options="-parameters" />
       <module name="microservices-users" options="-parameters" />
       <module name="microservicios-cursos" options="-parameters" />
       <module name="microservicios-eureka" options="-parameters" />
