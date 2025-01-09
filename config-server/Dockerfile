@@ -5,7 +5,7 @@ FROM openjdk:17
 WORKDIR /app
 
 # Copia el archivo JAR generado al contenedor
-COPY target/config-server-0.0.1-SNAPSHOT.jar app.jar
+COPY ./target/config-server-0.0.1-SNAPSHOT.jar app.jar
 
 # Expone el puerto del Config Server
 EXPOSE 8888

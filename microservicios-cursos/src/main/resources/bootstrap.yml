@@ -3,5 +3,6 @@ spring:
     name: microservices-cursos # Nombre del microservicio
   cloud:
     config:
-      uri: http://localhost:8888 # Dirección del Config Server
+      uri: http://config-server:8888 # Dirección del Config Server
+
       fail-fast: true # Si el Config Server no está disponible, falla rápido
