@@ -5,7 +5,7 @@ FROM openjdk:17
 WORKDIR /app
 
 # Copia el archivo JAR generado al contenedor
-COPY ./target/microservices-users-0.0.1-SNAPSHOT.jar app.jar
+COPY target/microservices-users-0.0.1-SNAPSHOT.jar app.jar
 
 # Expone el puerto en el que corre el microservicio
 EXPOSE 8081
