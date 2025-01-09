@@ -3,5 +3,5 @@ spring:
     name: microservicio-eureka-server # Nombre del servicio que utilizará el config-server
   cloud:
     config:
-      uri: http://localhost:8888 # URL del config-server
+      uri: http://config-server:8888 # Dirección del Config Server
       fail-fast: true
