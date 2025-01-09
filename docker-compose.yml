@@ -1,0 +1,78 @@
+version: '3.9'
+services:
+  config-server:
+    image: config-server:latest
+    container_name: config-server
+    ports:
+      - "8888:8888"
+    networks:
+      - spring-microservices-network
+
+  eureka-server:
+    image: eureka-server:latest
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+    depends_on:
+      - config-server # Config Server debe estar levantado primero
+    networks:
+      - spring-microservices-network
+
+  microservices-users:
+    image: microservices-users:latest
+    container_name: microservices-users-container
+    ports:
+      - "8081:8081"
+    depends_on:
+      - config-server
+      - eureka-server # Ambos deben estar levantados
+    networks:
+      - spring-microservices-network
+
+  microservices-cursos:
+    image: microservices-cursos:latest
+    container_name: microservices-cursos-container
+    ports:
+      - "8082:8082"
+    depends_on:
+      - config-server
+      - eureka-server
+    networks:
+      - spring-microservices-network
+
+  microservices-exams:
+    image: microservices-exams:latest
+    container_name: microservices-exams-container
+    ports:
+      - "8083:8083"
+    depends_on:
+      - config-server
+      - eureka-server
+    networks:
+      - spring-microservices-network
+
+  microservices-payments:
+    image: microservices-payments:latest
+    container_name: microservices-payments-container
+    ports:
+      - "8084:8084"
+    depends_on:
+      - config-server
+      - eureka-server
+    networks:
+      - spring-microservices-network
+
+  microservices-gateway:
+    image: microservices-gateway:latest
+    container_name: microservices-gateway-container
+    ports:
+      - "8090:8090"
+    depends_on:
+      - eureka-server
+      - config-server
+    networks:
+      - spring-microservices-network
+
+networks:
+  spring-microservices-network:
+    driver: bridge
