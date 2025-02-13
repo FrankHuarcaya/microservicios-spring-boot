@@ -3,5 +3,7 @@ spring:
     name: microservicio-eureka-server # Nombre del servicio que utilizará el config-server
   cloud:
     config:
-      uri: http://config-server:8888 # Dirección del Config Server
+      #uri: http://config-server:8888 # Dirección del Config Server en docker se activa
+      uri: http://localhost:8888 # Dirección del Config Server
+
       fail-fast: true

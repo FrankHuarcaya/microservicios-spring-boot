@@ -3,7 +3,8 @@ spring:
     name: microservices-users
   cloud:
     config:
-      uri: http://config-server:8888 # Dirección del Config Server
+      #uri: http://config-server:8888 # Dirección del Config Server en docker
+      uri: http://localhost:8888 # LocalHost
       fail-fast: true
 
 logging:
