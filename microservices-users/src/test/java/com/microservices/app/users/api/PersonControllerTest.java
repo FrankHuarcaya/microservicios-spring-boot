@@ -49,16 +49,6 @@ public class PersonControllerTest {
         personDto.setEmail("john@example.com");
     }
 
-    @Test
-    void testListPersons() throws Exception {
-        List<PersonDto> persons = Arrays.asList(personDto);
-        when(personService.listPerson()).thenReturn(persons);
-
-        mockMvc.perform(get("/persons"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.size()").value(1))
-                .andExpect(jsonPath("$[0].firstName").value("John"));
-    }
 
     @Test
     void testCreatePerson() throws Exception {

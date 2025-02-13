@@ -5,6 +5,9 @@ import com.microservicios.app.cursos.domain.persistence.CourseRepository;
 import com.microservicios.app.cursos.domain.services.ICourseService;
 import com.microservicios.app.cursos.dto.CourseDto;
 import com.microservicios.app.cursos.mapping.CourseMapping;
+import com.microservicios.app.cursos.shared.domain.model.ApiResponseDto;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,9 +29,17 @@ public class CourseServiceImplement implements ICourseService {
 
 
     @Override
-    public List<CourseDto> listCourses() {
+    public ResponseEntity<ApiResponseDto<List<CourseDto>>> listCourses() {
+        List<Course> courses = courseRepository.findAll();
+        int totalRegistros = courses.size();
 
-        return mapping.modelList(courseRepository.findAll());
+        if (courses.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT)
+                    .body(new ApiResponseDto<>(204, "No se encontraron cursos disponibles.", null, totalRegistros));
+        }
+
+        List<CourseDto> courseDtos = mapping.modelList(courses);
+        return ResponseEntity.ok(new ApiResponseDto<>(200, "Lista de cursos obtenida con éxito", courseDtos, totalRegistros));
     }
 
     @Override

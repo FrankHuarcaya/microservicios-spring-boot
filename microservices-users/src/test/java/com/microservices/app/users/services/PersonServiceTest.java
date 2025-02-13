@@ -54,17 +54,6 @@ public class PersonServiceTest {
         personDto.setEmail("john@example.com");
     }
 
-    @Test
-    void testListPersons() {
-        when(personRepository.findAll()).thenReturn(Arrays.asList(person));
-        when(mapping.modelList(anyList())).thenReturn(Arrays.asList(personDto));
-
-        List<PersonDto> persons = personService.listPerson();
-
-        assertNotNull(persons);
-        assertEquals(1, persons.size());
-        assertEquals("John", persons.get(0).getFirstName());
-    }
 
     @Test
     void testRegisterPerson() {

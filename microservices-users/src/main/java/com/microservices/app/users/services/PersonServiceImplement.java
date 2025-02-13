@@ -5,7 +5,10 @@ import com.microservices.app.users.domain.persistence.PersonRepository;
 import com.microservices.app.users.domain.services.IPersonServices;
 import com.microservices.app.users.dto.PersonDto;
 import com.microservices.app.users.mapping.PersonMapping;
+import com.microservices.app.users.shared.domain.model.ApiResponse;
 import com.microservices.app.users.shared.exception.ResourceNotFoundException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,9 +28,15 @@ public class PersonServiceImplement implements IPersonServices {
     }
 
     @Override
-    public List<PersonDto> listPerson() {
+    public ResponseEntity<ApiResponse<List<PersonDto>>> listPerson() {
+        List<PersonDto> persons = mapping.modelList(personRepository.findAll());
 
-        return mapping.modelList(personRepository.findAll());
+        if (persons.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT)
+                    .body(new ApiResponse<>(204, "No se encontraron registros de personas.", persons));
+        }
+
+        return ResponseEntity.ok(new ApiResponse<>(200, "Personas encontradas con éxito", persons));
     }
 
     @Override

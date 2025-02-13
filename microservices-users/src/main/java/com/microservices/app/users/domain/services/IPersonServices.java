@@ -1,12 +1,14 @@
 package com.microservices.app.users.domain.services;
 
 import com.microservices.app.users.dto.PersonDto;
+import com.microservices.app.users.shared.domain.model.ApiResponse;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
 public interface IPersonServices {
 
-    List<PersonDto> listPerson();
+    ResponseEntity<ApiResponse<List<PersonDto>>> listPerson();
 
     PersonDto registerPerson(PersonDto personDto);
 

@@ -3,6 +3,7 @@ package com.microservicios.app.cursos.api;
 
 import com.microservicios.app.cursos.domain.services.ICourseService;
 import com.microservicios.app.cursos.dto.CourseDto;
+import com.microservicios.app.cursos.shared.domain.model.ApiResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -30,9 +31,8 @@ public class CourseController {
             @ApiResponse(responseCode = "200", description = "List of courses retrieved successfully")
     })
     @GetMapping
-    public ResponseEntity<List<CourseDto>> listCourses() {
-        List<CourseDto> courses = courseService.listCourses();
-        return ResponseEntity.ok(courses);
+    public ResponseEntity<ApiResponseDto<List<CourseDto>>> listCourses() {
+        return courseService.listCourses();
     }
     @Operation(summary = "Create a new course", description = "Register a new course in the system")
     @ApiResponses(value = {

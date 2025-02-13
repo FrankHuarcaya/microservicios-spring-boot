@@ -3,6 +3,7 @@ package com.microservices.app.users.api;
 
 import com.microservices.app.users.domain.services.IPersonServices;
 import com.microservices.app.users.dto.PersonDto;
+import com.microservices.app.users.shared.domain.model.ApiResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,9 +20,8 @@ public class PersonController {
     }
 
     @GetMapping
-    public ResponseEntity<List<PersonDto>> listPersons() {
-        List<PersonDto> persons = personService.listPerson();
-        return ResponseEntity.ok(persons); // Devuelve un 200 OK con la lista de personas
+    public ResponseEntity<ApiResponse<List<PersonDto>>> listPersons() {
+        return personService.listPerson();
     }
 
     @PostMapping
