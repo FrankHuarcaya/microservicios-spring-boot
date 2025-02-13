@@ -5,5 +5,5 @@ spring:
   cloud:
     config:
       #uri: http://config-server:8888 # Dirección del Config Server
-      uri: http://localhost:8888 # Dirección del Config Server local
+      uri: http://localhost:8888 # Dirección del Config Server localhost
       fail-fast: true # Falla si no puede conectarse al Config Server
