@@ -25,6 +25,7 @@ services:
     depends_on:
       - config-server
       - eureka-server # Ambos deben estar levantados
+      - mysql-users
     networks:
       - spring-microservices-network
 
@@ -36,8 +37,10 @@ services:
     depends_on:
       - config-server
       - eureka-server
+      - postgres-cursos
     networks:
       - spring-microservices-network
+
 
   microservices-exams:
     image: microservices-exams:latest
@@ -47,6 +50,7 @@ services:
     depends_on:
       - config-server
       - eureka-server
+      - mongo-services
     networks:
       - spring-microservices-network
 
@@ -58,6 +62,7 @@ services:
     depends_on:
       - config-server
       - eureka-server
+      - mongo-payments
     networks:
       - spring-microservices-network
 
@@ -72,6 +77,59 @@ services:
     networks:
       - spring-microservices-network
 
+  mysql-users:
+    image: mysql:8
+    container_name: mysql-users
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: admin123
+      MYSQL_DATABASE: db_microservicios_examenes
+    volumes:
+      - mysql-users-data:/var/lib/mysql
+    networks:
+      - spring-microservices-network
+
+  postgres-cursos:
+    image: postgres:15
+    container_name: postgres-cursos
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: db_microservicios_cursos
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin123
+    volumes:
+      - postgres-cursos-data:/var/lib/postgresql/data
+    networks:
+      - spring-microservices-network
+
+  mongo-payments:
+    image: mongo:7
+    container_name: mongo-payments
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-payments-data:/data/db
+    networks:
+      - spring-microservices-network
+
+  mongo-services:
+    image: mongo:7
+    container_name: mongo-services
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongo-services-data:/data/db
+    networks:
+      - spring-microservices-network
+
 networks:
   spring-microservices-network:
     driver: bridge
+
+volumes:
+  mysql-users-data:
+  postgres-cursos-data:
+  mongo-payments-data:
+  mongo-services-data:
