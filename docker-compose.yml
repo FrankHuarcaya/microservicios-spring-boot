@@ -7,75 +7,132 @@ services:
       - "8888:8888"
     networks:
       - spring-microservices-network
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8888/actuator/health" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   eureka-server:
     build: ./microservicios-eureka
     container_name: eureka-server
     ports:
       - "8761:8761"
-    depends_on:
-      - config-server
     networks:
       - spring-microservices-network
+    restart: always
+    depends_on:
+      config-server:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8761"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
 
   microservices-users:
     build: ./microservices-users
     container_name: microservices-users-container
     ports:
       - "8081:8081"
-    depends_on:
-      - config-server
-      - eureka-server
-      - mysql-users
     networks:
       - spring-microservices-network
+    restart: always
+    depends_on:
+      config-server:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+      mysql-users:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   microservices-cursos:
     build: ./microservicios-cursos
     container_name: microservices-cursos-container
     ports:
       - "8082:8082"
-    depends_on:
-      - config-server
-      - eureka-server
-      - postgres-cursos
     networks:
       - spring-microservices-network
+    restart: always
+    depends_on:
+      config-server:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+      postgres-cursos:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8082/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   microservices-exams:
     build: ./microservices-exams
     container_name: microservices-exams-container
     ports:
       - "8083:8083"
-    depends_on:
-      - config-server
-      - eureka-server
-      - mongo-services
     networks:
       - spring-microservices-network
+    restart: always
+    depends_on:
+      config-server:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+      mongo-services:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8083/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   microservices-payments:
     build: ./microservices-payments
     container_name: microservices-payments-container
     ports:
       - "8084:8084"
-    depends_on:
-      - config-server
-      - eureka-server
-      - mongo-payments
     networks:
       - spring-microservices-network
+    restart: always
+    depends_on:
+      config-server:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+      mongo-payments:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8084/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   microservices-gateway:
     build: ./microservices-gateway
     container_name: microservices-gateway-container
     ports:
       - "8090:8090"
-    depends_on:
-      - eureka-server
-      - config-server
     networks:
       - spring-microservices-network
+    restart: always
+    depends_on:
+      config-server:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8090/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 
   mysql-users:
@@ -90,6 +147,7 @@ services:
       - mysql-users-data:/var/lib/mysql
     networks:
       - spring-microservices-network
+    restart: always
 
   postgres-cursos:
     image: postgres:15
@@ -104,6 +162,7 @@ services:
       - postgres-cursos-data:/var/lib/postgresql/data
     networks:
       - spring-microservices-network
+    restart: always
 
   mongo-payments:
     image: mongo:7
@@ -114,6 +173,7 @@ services:
       - mongo-payments-data:/data/db
     networks:
       - spring-microservices-network
+    restart: always
 
   mongo-services:
     image: mongo:7
@@ -124,6 +184,7 @@ services:
       - mongo-services-data:/data/db
     networks:
       - spring-microservices-network
+    restart: always
 
 networks:
   spring-microservices-network:

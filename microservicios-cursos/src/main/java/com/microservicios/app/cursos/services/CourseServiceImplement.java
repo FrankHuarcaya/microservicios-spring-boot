@@ -48,7 +48,7 @@ public class CourseServiceImplement implements ICourseService {
         Course courseSave = mapping.model(cursoDto);
         // Guarda la entidad y obtén la versión persistida con valores actualizados
         Course savedCourse = courseRepository.save(courseSave);
-        return mapping.modelDto(courseSave);
+        return mapping.modelDto(savedCourse);
     }
 
     @Override
