@@ -1,6 +1,7 @@
 services:
+
   config-server:
-    image: config-server:latest
+    build: ./config-server
     container_name: config-server
     ports:
       - "8888:8888"
@@ -8,29 +9,29 @@ services:
       - spring-microservices-network
 
   eureka-server:
-    image: eureka-server:latest
+    build: ./microservicios-eureka
     container_name: eureka-server
     ports:
       - "8761:8761"
     depends_on:
-      - config-server # Config Server debe estar levantado primero
+      - config-server
     networks:
       - spring-microservices-network
 
   microservices-users:
-    image: microservices-users:latest
+    build: ./microservices-users
     container_name: microservices-users-container
     ports:
       - "8081:8081"
     depends_on:
       - config-server
-      - eureka-server # Ambos deben estar levantados
+      - eureka-server
       - mysql-users
     networks:
       - spring-microservices-network
 
   microservices-cursos:
-    image: microservices-cursos:latest
+    build: ./microservicios-cursos
     container_name: microservices-cursos-container
     ports:
       - "8082:8082"
@@ -41,9 +42,8 @@ services:
     networks:
       - spring-microservices-network
 
-
   microservices-exams:
-    image: microservices-exams:latest
+    build: ./microservices-exams
     container_name: microservices-exams-container
     ports:
       - "8083:8083"
@@ -55,7 +55,7 @@ services:
       - spring-microservices-network
 
   microservices-payments:
-    image: microservices-payments:latest
+    build: ./microservices-payments
     container_name: microservices-payments-container
     ports:
       - "8084:8084"
@@ -67,7 +67,7 @@ services:
       - spring-microservices-network
 
   microservices-gateway:
-    image: microservices-gateway:latest
+    build: ./microservices-gateway
     container_name: microservices-gateway-container
     ports:
       - "8090:8090"
@@ -76,6 +76,7 @@ services:
       - config-server
     networks:
       - spring-microservices-network
+
 
   mysql-users:
     image: mysql:8
